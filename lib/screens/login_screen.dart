@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:tyccon/widgets/custom_buttom.dart';
+import 'package:tyccon/resources/auth_methods.dart';
 import 'package:tyccon/widgets/custom_buttom.dart';
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  final AuthMethods _authMethods = AuthMethods();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,18 +19,24 @@ class _LoginScreenState extends State<LoginScreen> {
         children: [
           const Text(
             'Start or join a meeting',
-            style: TextStyle(
+            style: const TextStyle(
               fontSize: 24,
               fontWeight: FontWeight.bold,
             ),
           ),
-          SizedBox(height: 20), // Adding some spacing between text and image
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 38.0),
-            child: Image.asset('assets/onboarding.jpg'),
-          ), // Adjust path as per// your project structure
-          CustomButton(text: 'Google Signin',onPressed:() { }),
-       
+            child: Image.asset('assets/images/onboarding.jpg'),
+          ),
+          CustomButton(
+            text: 'Google Sign In',
+            onPressed: () async {
+              bool res = await _authMethods.signInWithGoogle(context);
+              if (res) {
+                Navigator.pushNamed(context, '/home');
+              }
+            },
+          ),
         ],
       ),
     );

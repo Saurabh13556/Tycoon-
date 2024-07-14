@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tyccon/screens/login_screen.dart';
+import 'package:tyccon/screens/home_screen.dart'; // Import HomeScreen
 import 'package:tyccon/utils/colors.dart';
 
 void main() {
@@ -18,10 +19,25 @@ class MyApp extends StatelessWidget {
         scaffoldBackgroundColor: backgroundColor,
       ),
       routes: {
-      '/login':(context) => const LoginScreen(),
-       '/home':(context) => const Home(),
+        '/login': (context) => const LoginScreen(),
+        '/home': (context) => const HomeScreen(), // Use HomeScreen
       },
-      home: const LoginScreen(),
+      home: StreamBuilder(
+        stream: AuthMethods().authChanges,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (snapshot.hasData) {
+            return const HomeScreen();
+          }
+
+          return const LoginScreen();
+        },
+      ),
     );
   }
 }

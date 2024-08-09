@@ -1,5 +1,5 @@
 
-# tyccon
+# Tycoon
 
 A new Flutter project.
 

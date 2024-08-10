@@ -2,8 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:tyccon/utils/utils.dart';
-
+import 'package:zoom_clone_tutorial/utils/utils.dart';
 
 class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
@@ -18,7 +17,7 @@ class AuthMethods {
       final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
       final GoogleSignInAuthentication? googleAuth =
-      await googleUser?.authentication;
+          await googleUser?.authentication;
 
       final credential = GoogleAuthProvider.credential(
         accessToken: googleAuth?.accessToken,
@@ -26,7 +25,7 @@ class AuthMethods {
       );
 
       UserCredential userCredential =
-      await _auth.signInWithCredential(credential);
+          await _auth.signInWithCredential(credential);
 
       User? user = userCredential.user;
 
@@ -47,5 +46,11 @@ class AuthMethods {
     return res;
   }
 
-
+  void signOut() async {
+    try {
+      _auth.signOut();
+    } catch (e) {
+      print(e);
+    }
+  }
 }

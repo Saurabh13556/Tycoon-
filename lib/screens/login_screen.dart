@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:tyccon/resources/auth_methods.dart';
-import 'package:tyccon/widgets/custom_buttom.dart';
+import 'package:zoom_clone_tutorial/resources/auth_methods.dart';
+import 'package:zoom_clone_tutorial/widgets/custom_button.dart';
+
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
 
